@@ -7,28 +7,44 @@ const galleryContainer = document.querySelector('.js-gallery');
 
 //modal image
 const lightboxImageRef = document.querySelector('.lightbox__image');
-console.log(lightboxImageRef);
+// console.log(lightboxImageRef);
 
 //modal
 const modalRef = document.querySelector('.js-lightbox');
-console.log(modalRef);
+// console.log(modalRef);
 
 // close modal button
-const lightboxButtonCloseRef = document.querySelector('.lightbox__button')
-console.log(lightboxButtonCloseRef);
+const lightboxButtonCloseRef = document.querySelector('.lightbox__button');
+// console.log(lightboxButtonCloseRef);
+
+// --- 7 --- Закрытие модального окна по клику на div.lightbox__overlay.
+const overlayRef = document.querySelector('.lightbox__overlay');
+console.log(overlayRef);
+
+overlayRef.addEventListener('click', closeModalClickOverlay);
+
+function closeModalClickOverlay(event) {
+    modalRef.classList.toggle('is-open');
+    lightboxImageRef.src = "";
+    lightboxImageRef.alt = "";
+}
 
 // markup (rezultat roboty function, eto sozdanie rozmetky)
 const galleryMarkup = createGalleryItemMarkup(galleryItems);
 // console.log(galleryMarkup);
 
+
 // --- 1.2 --- рендер разметки по массиву данных и предоставленному шаблону.
 galleryContainer.insertAdjacentHTML('beforeend', galleryMarkup);
+
 
 // add click to galleryContainer
 galleryContainer.addEventListener('click', onGalleryContainerClick);
 
 // click modal button
 lightboxButtonCloseRef.addEventListener('click', closeModal);
+
+
 
 // --- 1.1 --- Создание разметки по массиву данных и предоставленному шаблону.
 function createGalleryItemMarkup(galleryItems) {
