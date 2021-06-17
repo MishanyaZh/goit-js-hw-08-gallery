@@ -19,15 +19,21 @@ const lightboxButtonCloseRef = document.querySelector('.lightbox__button');
 
 // --- 7 --- Закрытие модального окна по клику на div.lightbox__overlay.
 const overlayRef = document.querySelector('.lightbox__overlay');
-console.log(overlayRef);
+// console.log(overlayRef);
+//  клик на div.lightbox__overlay. => closeModal
+overlayRef.addEventListener('click', closeModal);
 
-overlayRef.addEventListener('click', closeModalClickOverlay);
+// ---8 escape ---
+document.addEventListener('keydown', evt => {
+    if (evt.code !== 'Escape') {
+        return;
+    }
+    closeModal()
+});
 
-function closeModalClickOverlay(event) {
-    modalRef.classList.toggle('is-open');
-    lightboxImageRef.src = "";
-    lightboxImageRef.alt = "";
-}
+// --- 9 --- right left
+
+
 
 // markup (rezultat roboty function, eto sozdanie rozmetky)
 const galleryMarkup = createGalleryItemMarkup(galleryItems);
@@ -76,8 +82,8 @@ function onGalleryContainerClick(event) {
 // --- 2.2 --- получение url большого изображения.
     const urlGalleryImage = event.target.dataset.source;
     const altGalleryImag = event.target.alt;
-    // console.log(urlGalleryImage);
-    // console.log(altGalleryImag);
+    console.log(urlGalleryImage);
+    console.log(altGalleryImag);
 
 // --- 3 --- Открытие модального окна по клику на элементе галереи.
     modalRef.classList.toggle('is-open');
