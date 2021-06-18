@@ -31,11 +31,39 @@ document.addEventListener('keydown', evt => {
     closeModal()
 });
 
+
+
 // --- 9 --- right left
+const bigImageArrow = [];
+for (const item of galleryItems) {
+    bigImageArrow.push(item.original);
+}
+
+let idxOfOpenedImage = bigImageArrow.indexOf(lightboxImageRef.src);
+// console.log(idxOfOpenedImage);
+
+function onRightKeyClick(evt) {
+    if (evt.keyCode === 39 && idxOfOpenedImage < bigImageArrow.length-1) {
+        lightboxImageRef.src = bigImageArrow[idxOfOpenedImage +=1]
+    }
+    // else {
+    //     lightboxImageRef.src = bigImageArrow[idxOfOpenedImage =0]
+    // }
+    console.log(evt);
+}
+
+function onLeftKeyClick(evt) {
+    if (evt.keyCode === 37 && idxOfOpenedImage > 0) {
+        lightboxImageRef.src = bigImageArrow[idxOfOpenedImage -=1]
+    }
+    //  else {
+    //     // lightboxImageRef.src = bigImageArrow.length-1
+    // }
+}
 
 
 
-// markup (rezultat roboty function, eto sozdanie rozmetky)
+// markup (rezultat roboty function, et o sozdanie rozmetky)
 const galleryMarkup = createGalleryItemMarkup(galleryItems);
 // console.log(galleryMarkup);
 
@@ -68,6 +96,7 @@ function createGalleryItemMarkup(galleryItems) {
     }).join('');
 }
 
+
 //lovim klik na galleryContainer
 function onGalleryContainerClick(event) {
    // ERROR 403
@@ -92,6 +121,14 @@ function onGalleryContainerClick(event) {
 // --- 4 --- Подмена значения атрибута src элемента img.lightbox__image.
     lightboxImageRef.src = urlGalleryImage;
     lightboxImageRef.alt = altGalleryImag;
+
+
+// ---right and left
+    window.addEventListener('keydown', onRightKeyClick);
+    window.addEventListener('keydown', onLeftKeyClick);
+
+    // onRightKeyClick();
+    // onLeftKeyClick();
 }
 
 // --- 5 --- Закрытие модального окна по клику на кнопку button[data-action="close-lightbox"].
@@ -101,4 +138,7 @@ function closeModal(event) {
     // --- 6 --- Очистка значения атрибута src элемента img.lightbox__image.
     lightboxImageRef.src = "";
     lightboxImageRef.alt = "";
+
+    window.removeEventListener('keydown', onRightKeyClick);
+    window.removeEventListener('keydown', onLeftKeyClick);
 }
